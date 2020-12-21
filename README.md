@@ -1,1 +1,1 @@
-# FoodChainBrandsAngualrApp
+# FoodChainBrandsAngularApp
