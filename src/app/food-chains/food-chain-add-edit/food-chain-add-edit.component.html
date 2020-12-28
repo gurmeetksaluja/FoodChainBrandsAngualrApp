@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="foodChainForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-success" type="submit" [disabled]="!foodChainForm.valid">Save</button> | 
+                    <button class="btn btn-danger" type="button" (click)="onCancelFoodChainManage()">Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="foodChainName">Name</label>
+                        <input type="hidden"  id="id" name="id" formControlName="id"
+                        class="form-control" #id>
+                        <input type="text" id="foodChainName" name="foodChainName" formControlName="foodChainName" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="imageUploader">Upload Image:</label>
+                        <input type="file" #file id="imageUpload" name="imageUpload" (change)=upload(file.files)
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="foodChainLogoURL">Image URL</label>
+                        <input type="text" style="display: none;" id="foodChainLogoURL" name="foodChainLogoURL" formControlName="foodChainLogoURL"
+                            class="form-control" #foodChainLogoURL>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <img [src]="foodChainLogoURL.value" class="img-responsive">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" rows="6" class="form-control"
+                            formControlName="description"></textarea>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-xs-12" formArrayName="ingredients">
+                    <div class="row" style="margin-top: 10px;"
+                        *ngFor="let ingredientCtrl of ingredientsControls;let i=index;" [formGroupName]="i">
+                        <div class="col-xs-8" style="margin-right: 5px;">
+                            <input type="text" class="form-control" formControlName="name">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="number" class="form-control" formControlName="amount">
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-danger" (click)="onDeleteIngredient(i)">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-success" type="button" (click)="onAddIngredient()">Add
+                                Ingredient</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </form>
+    </div>
+</div>

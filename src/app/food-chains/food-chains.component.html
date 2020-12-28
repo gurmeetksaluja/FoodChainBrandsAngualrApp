@@ -1,1 +1,20 @@
-<p>food-chains works!</p>
+<div class="row">
+    <div class="col-xs-12">
+      <button class="btn btn-success" (click)="onNewFoodChainBrands()">New Food Chain Brand</button>   
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-food-chain-detail
+        *ngFor="let foodChainEl of foodChains; let i = index"
+        [foodChainDetail]="foodChainEl"
+        [index]="foodChainEl.id"></app-food-chain-detail>
+    </div>
+  </div>
+
+  <!-- <ul *ngIf="(foodChains);">
+    <li *ngFor="let shopping of foodChains" >
+      <span>{{ shopping.foodChainName }}</span>
+    </li>
+  </ul> -->

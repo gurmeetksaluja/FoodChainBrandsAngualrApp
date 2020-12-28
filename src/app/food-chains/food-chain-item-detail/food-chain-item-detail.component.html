@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-success" type="button" (click)="onEditFoodChain()">Edit</button> | 
+                <button class="btn btn-success" type="button" (click)="onDeleteFoodChain()">Delete</button> | 
+                <button class="btn btn-danger" type="button" (click)="onCancelFoodChainManage()">Cancel</button>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="foodChainItem.foodChainName">Name: </label>
+                    <!-- <input type="hidden" id="id" name="id" formControlName="id" class="form-control" #id> -->
+                    <span>{{foodChainItem.foodChainName}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="foodChainItem.foodChainLogoURL">Image: </label>
+                    <img [src]="foodChainItem.foodChainLogoURL" class="img-responsive">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <span>{{foodChainItem.description}}</span>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
