@@ -85,9 +85,18 @@ export function foodChainReducer(state = initialState, action: FoodChainActions.
 
 
         case FoodChainActions.DELETE_FOOD_CHAIN:
+            return {
+                ...state,
+                loading: true
+              };
         case FoodChainActions.DELETE_FOOD_CHAIN_SUCCESS:
-        case FoodChainActions.DELETE_FOOD_CHAIN_FAILURE:
-            return state;
+            return {
+                ...state,
+                list: state.foodChain.filter(item => item.id !== action.payload),
+                loading: false
+              }
+        // case FoodChainActions.DELETE_FOOD_CHAIN_FAILURE:
+        //     return state;
         default:
             return state;
     }
