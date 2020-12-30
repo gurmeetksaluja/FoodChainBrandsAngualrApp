@@ -1,6 +1,6 @@
 
 export class User {
-    constructor(private access_token: string,  private token_type: string, private refresh_token: string, private _tokenExpirationDate: Date) { }
+    constructor(public access_token: string,  public token_type: string, public refresh_token: string, public _tokenExpirationDate: Date) { }
 
     get token() {
         if(!this._tokenExpirationDate || new Date() >this._tokenExpirationDate){

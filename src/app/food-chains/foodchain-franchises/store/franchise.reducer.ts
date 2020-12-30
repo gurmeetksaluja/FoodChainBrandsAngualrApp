@@ -86,7 +86,7 @@ export function franchiseReducer(state = initialState, action: FranchiseActions.
         case FranchiseActions.DELETE_FRANCHISE_SUCCESS:
             return {
                 ...state,
-                // list: state.franchise.filter(item => item.id !== action.payload),
+                list: state.franchise.filter(item => item.id !== action.payload),
                 loading: false
             }
         default:

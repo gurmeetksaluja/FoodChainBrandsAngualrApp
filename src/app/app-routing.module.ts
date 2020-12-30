@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthComponent } from "./auth/auth.component";
+import { AuthGuard } from "./auth/auth.guard";
 import { FoodChainAddEditComponent } from "./food-chains/food-chain-add-edit/food-chain-add-edit.component";
 import { FoodChainItemDetailComponent } from "./food-chains/food-chain-item-detail/food-chain-item-detail.component";
 import { FoodChainsComponent } from "./food-chains/food-chains.component";
@@ -13,7 +14,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/auth', pathMatch: 'full' },
     { path: 'auth', component: AuthComponent },
     {
-        path: 'foodchains', children: [
+        path: 'foodchains', canActivate: [AuthGuard], children: [
             { path: '', component: FoodChainsComponent },
             { path: 'new', component: FoodChainAddEditComponent },
             { path: ':id', component: FoodChainItemDetailComponent },

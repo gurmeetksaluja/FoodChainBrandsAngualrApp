@@ -36,19 +36,19 @@ const handleAuthentication = (
 
 const handleError = (errorRes: any) => {
   let errorMessage = 'An unknown error occurred!';
-  console.log(errorRes);
+
   if (!errorRes.error || !errorRes.error.error) {
     return of(new AuthActions.AuthenticateFail(errorMessage));
   }
-  switch (errorRes.error.error.message) {
+  switch (errorRes.error.error_description) {
     case 'EMAIL_EXISTS':
       errorMessage = 'This email exists already';
       break;
     case 'EMAIL_NOT_FOUND':
       errorMessage = 'This email does not exist.';
       break;
-    case 'INVALID_PASSWORD':
-      errorMessage = 'This password is not correct.';
+    case 'invalid_username_or_password':
+      errorMessage = 'Invalid Username or Password!!';
       break;
   }
   return of(new AuthActions.AuthenticateFail(errorMessage));
@@ -92,6 +92,50 @@ export class AuthEffects {
       if (authSuccessAction.payload.redirect) {
         this.router.navigate(['/foodchains']);
       }
+    })
+  );
+
+  @Effect()
+  autoLogin = this.actions$.pipe(
+    ofType(AuthActions.AUTO_LOGIN),
+    map(() => {
+      const userData: {
+        access_token: string;
+        token_type: string;
+        refresh_token: string;
+        expirationDate: Date;
+      } = JSON.parse(localStorage.getItem('userData')!);
+      if (!userData) {
+        return { type: 'DUMMY' };
+      }
+
+      const loadedUser = new User(
+        userData.access_token,
+        userData.token_type,
+        userData.refresh_token,
+        new Date(userData.expirationDate)
+      );
+
+      if (loadedUser.token) {
+        // this.user.next(loadedUser);
+        const expirationDuration =
+          new Date(userData.expirationDate).getTime() -
+          new Date().getTime();
+        this.authService.setLogoutTimer(expirationDuration);
+        return new AuthActions.AuthenticateSuccess({
+          access_token: loadedUser.token,
+          token_type: loadedUser.token_type,
+          refresh_token: loadedUser.refresh_token,
+          expirationDate: new Date(userData.expirationDate),
+          redirect: true
+        });
+
+        // const expirationDuration =
+        //   new Date(userData._tokenExpirationDate).getTime() -
+        //   new Date().getTime();
+        // this.autoLogout(expirationDuration);
+      }
+      return { type: 'DUMMY' };
     })
   );
 

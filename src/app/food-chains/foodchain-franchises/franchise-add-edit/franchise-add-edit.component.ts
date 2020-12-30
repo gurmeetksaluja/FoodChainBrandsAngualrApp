@@ -30,21 +30,22 @@ export class FranchiseAddEditComponent implements OnInit, OnDestroy {
     });
   }
   private initForm() {
-  //  console.log('Init Form Call');
-    let franchiseArray = new FormArray([]);
+    //  console.log('Init Form Call');
+
     //this.store.dispatch(new FranchiseActions.LoadFranchises(this.id));
     //this.store.pipe(select(fromApp.appReducer.franchises))
     this.storeSub = this.store.select(franchises => franchises.franchises).pipe(map(franchiseState => {
-     // console.log('in store sub');
+      // console.log('in store sub');
       return franchiseState.franchise;//.filter((franchise, index) => {
       //   console
       //   return franchise.foodChainId === this.id;
 
       //  });
     })).subscribe(franchisesRes => {
+      let franchiseArray = new FormArray([]);
       // const arrayControl = <FormArray>newForm.controls['formArray'];
       if (franchisesRes.length > 0) {
-      //  console.log('franchise lisr', franchisesRes);
+        //  console.log('franchise lisr', franchisesRes);
         for (let franchiseItem of franchisesRes) {
           franchiseArray.push(
             new FormGroup({
@@ -75,14 +76,14 @@ export class FranchiseAddEditComponent implements OnInit, OnDestroy {
         );
 
       }
-
+      this.franchiseForm = new FormGroup(
+        {
+          formArray: franchiseArray
+        }
+      );
     });
-   
-    this.franchiseForm = new FormGroup(
-      {
-        formArray: franchiseArray
-      }
-    );
+
+
   }
 
   get franchiseControls() {
@@ -96,8 +97,8 @@ export class FranchiseAddEditComponent implements OnInit, OnDestroy {
     const element = (<FormArray>this.franchiseForm.get('formArray')).at(index);
     if (element.value.id > 0) {
       if (confirm('Are you sure you want to delete this franchise?')) {
-        (<FormArray>this.franchiseForm.get('formArray')).removeAt(index);
         this.store.dispatch(new FranchiseActions.DeleteFranchise(+element.value.id));
+        (<FormArray>this.franchiseForm.get('formArray')).removeAt(index);
       }
     } else { (<FormArray>this.franchiseForm.get('formArray')).removeAt(index); }
   }
@@ -125,6 +126,7 @@ export class FranchiseAddEditComponent implements OnInit, OnDestroy {
     }
 
     this.store.dispatch(new FranchiseActions.AddFranchise(franchiseListSubmit));
+    this.router.navigate(['../../franchise'], { relativeTo: this.route });
   }
 
   ngOnDestroy() {

@@ -54,7 +54,7 @@ export class FranchiseAffects {
     addRedirect = this.actions$.pipe(
         ofType(FranchiseActions.ADD_FRANCHISE_SUCCESS),
         tap((authSuccessAction: FranchiseActions.AddFranchiseSuccess) => {
-            this.router.navigate(['../../franchise'],{ relativeTo: this.route });
+          //  this.router.navigate(['../../franchise']);
         })
     );
 
@@ -74,17 +74,17 @@ export class FranchiseAffects {
     updateRedirect = this.actions$.pipe(
         ofType(FranchiseActions.UPDATE_FRANCHISE_SUCCESS),
         tap((authSuccessAction: FranchiseActions.UpdateFranchiseSuccess) => {
-            this.router.navigate(['../../franchise'],{ relativeTo: this.route });
+         
         })
     );
-
-    @Effect()
+  
+    @Effect({dispatch:false})
     DeleteFranchise = this.actions$.pipe(
         ofType(FranchiseActions.DELETE_FRANCHISE),
-        switchMap((data: FranchiseActions.DeleteFranchise) => {
+        mergeMap((data: FranchiseActions.DeleteFranchise) => {
             console.log('Delete Call',data.payload);
             return this.httpClient.delete<Franchise>('http://localhost:5000/api/FoodChainFranchise/RemoveFoodChainFranchise?id=' + data.payload).pipe(
-                map(() => {new FranchiseActions.DeleteFranchiseSuccess("Removed successfully.")}),
+                map(() => {new FranchiseActions.DeleteFranchiseSuccess(data.payload)}),
                 catchError(error => of(new FranchiseActions.DeleteFranchiseFailure(error.message)))
             )
         })

@@ -101,7 +101,7 @@ export class DeleteFranchise implements Action {
 export class DeleteFranchiseSuccess implements Action {
     readonly type = DELETE_FRANCHISE_SUCCESS;
 
-    constructor(public payload: string) { }
+    constructor(public payload: number) { }
 }
 
 export class DeleteFranchiseFailure implements Action {
