@@ -43,8 +43,14 @@ export class FoodChainItemDetailComponent implements OnInit {
   }
   onCancelFoodChainManage() { this.router.navigate(['/foodchains'], { relativeTo: this.route }); }
 
-  onDeleteFoodChain(){
-    this.store.dispatch(new FoodChainActions.DeleteFoodChain(this.id));
-    this.router.navigate(['/foodchains'], { relativeTo: this.route }); 
+  onDeleteFoodChain() {
+    if (confirm('Are you sure you want to delete this foodchain?')) {
+      this.store.dispatch(new FoodChainActions.DeleteFoodChain(this.id));
+      this.router.navigate(['/foodchains'], { relativeTo: this.route });
+    }
+  }
+
+  onShowingFoodChainFranchise() {
+    this.router.navigate(['franchise'], { relativeTo: this.route });
   }
 }

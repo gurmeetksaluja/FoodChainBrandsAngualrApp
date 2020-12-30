@@ -20,29 +20,13 @@ export class FoodChainsComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.store.dispatch(new LoadFoodChains());//.select(chain=>chain.foodChains)
-    //.pipe(map(foodState => foodState.foodChain))
-    // .subscribe(
-    //   (foodChain: FoodChain[]) => {
-    //     this.foodChains = foodChain;
-    //     console.log(this.foodChains);
-    //   }
-    // );
-
-    // this.store.pipe(select(fromApp.appReducer.foodChains))
-    // this.subscription = this.store.select(chain => chain.foodChains)
-    //   .pipe(map(foodState => foodState.foodChain))
-    //   .subscribe(
-    //     (foodChain: FoodChain[]) => {
-    //       this.foodChains = foodChain;
-    //       console.log(this.foodChains);
-    //     }
-    //   );
+    
     this.store.dispatch(new LoadFoodChains());
     this.store.select(store => store.foodChains.foodChain).pipe(map(recipesState => recipesState))
       .subscribe(
         (recipe: FoodChain[]) => {
           this.foodChains = recipe;
+          console.log('FoodCHains',this.foodChains);
         }
       );
     this.loading$ = this.store.select(store => store.foodChains.loading);

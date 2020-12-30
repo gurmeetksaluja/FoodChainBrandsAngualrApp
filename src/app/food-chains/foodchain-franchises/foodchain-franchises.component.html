@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success" (click)="onNewFranchises()">Manage Franchises</button>
+    </div>
+</div>
+<hr>
+<div class="row" *ngIf="franchises.length">
+    <div class="col-xs-12">
+        <app-franchise-detail *ngFor="let franchisesEl of franchises; let i = index" [franchiseDetail]="franchisesEl"
+            [index]="franchisesEl.id"></app-franchise-detail>
+    </div>
+</div>
+<div class="row" *ngIf="!franchises.length">
+    <div class="col-xs-12">
+        <h3>There is no franchise added for this Food Chain.</h3>
+    </div>
+</div>

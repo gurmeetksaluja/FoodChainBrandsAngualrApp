@@ -87,19 +87,7 @@ export class FoodChainAffects {
             )
         })
     );
-    //     @Effect() loadShopping$ = this.actions$
-    //     .pipe(
-    //       ofType(FoodChainActions.LOAD_FOOD_CHAINS),
-    //       mergeMap(
-    //         () => this.httpClient.get<FoodChain[]>('http://localhost:5000/api/FoodChain/FoodChains')
-    //           .pipe(
-    //             map(data => {
-    //               return new FoodChainActions.LoadFoodChainsSuccess(data)
-    //             }),
-    //             catchError(error => of(new FoodChainActions.LoadFoodChainsSuccess(error.message)))
-    //           )
-    //       ),
-    //   )
+  
     constructor(private actions$: Actions,
         private httpClient: HttpClient,
         private router: Router) { }

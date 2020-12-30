@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="franchiseForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="btn btn-success" type="submit" [disabled]="!franchiseForm.valid">Save</button> |
+                    <button class="btn btn-danger" type="button" (click)="onCancelFranchiseAdd()">Cancel</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" formArrayName="formArray">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-xs-2" style="margin-right: 5px;">
+                            <span> Address</span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span> City</span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span> State</span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span> Country</span>
+                        </div>
+                        <div class="col-xs-2">
+                            <span> PinCode</span>
+                        </div>
+
+                    </div>
+                    <hr>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" formArrayName="formArray">
+                    <div class="row" style="margin-top: 10px;"
+                        *ngFor="let franchiseCtrl of franchiseControls;let i=index;" [formGroupName]="i">
+                        <div class="col-xs-2" style="margin-right: 5px;">
+                            <input type="hidden" formControlName="id">
+                            <input type="hidden" formControlName="foodChainId">
+                            <input type="text" class="form-control" formControlName="address">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" formControlName="city">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" formControlName="state">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" formControlName="country">
+                        </div>
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" formControlName="pinCode">
+                        </div>
+                        <div class="col-xs-1">
+                            <button type="button"  class="btn btn-danger" (click)="onDeleteFranchise(i)">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-success" type="button" (click)="onAddFranchiseCtrls()">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
